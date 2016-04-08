@@ -5,27 +5,31 @@ function preload() {
 
     game.load.image('bg', 'assets/pics/undersea.jpg');
     game.load.image('loop', 'assets/sprites/beball1.png');
+    game.load.bitmapFont('desyrel', 'assets/fonts/bitmapFonts/desyrel.png', 'assets/fonts/bitmapFonts/desyrel.xml');
 
 }
 
 function create() {
 
-    game.add.sprite(0, 0, 'bg');
-
     var group = game.make.group();
 
+    group.create(0, 0, 'bg');
+
     //  Add a bunch of sprites in random positions to the group
-    for (var i = 0; i < 40; i++)
+    for (var i = 0; i < 16; i++)
     {
         group.create(game.world.randomX, game.world.randomY, 'loop');
     }
 
+    var bmpText = game.make.bitmapText(32, 64, 'desyrel', 'Bitmap Text in the Group', 64);
+    group.add(bmpText);
+
     //  This is the BitmapData we're going to be drawing to
     var bmd = game.add.bitmapData(game.width, game.height);
 
-    bmd.addToWorld();
+    var bmdContainer = bmd.addToWorld(390, 290, 0, 0, 0.5, 0.5);
 
-    //  Draw the group
+    //  Draw the group to the BitmapData
     bmd.drawGroup(group);
 
 }
